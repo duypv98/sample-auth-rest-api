@@ -1,0 +1,45 @@
+{
+  "name": "sample-auth-rest-api",
+  "version": "1.0.0",
+  "description": "RESTful API for Sample Auth Server",
+  "main": "server.js",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "connect-mongo": "^3.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "express-validator": "^6.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.5",
+    "nodemon": "^1.19.4",
+    "saslprep": "^1.0.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/preset-env": "^7.6.3",
+    "chalk": "^2.4.2",
+    "dotenv": "^8.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec babel-node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/duypv98/sample-auth-rest-api.git"
+  },
+  "keywords": [
+    "JWT",
+    "NodeJS"
+  ],
+  "author": "DuyPV",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/duypv98/sample-auth-rest-api/issues"
+  },
+  "homepage": "https://github.com/duypv98/sample-auth-rest-api#readme"
+}
