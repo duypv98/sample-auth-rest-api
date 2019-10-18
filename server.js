@@ -20,7 +20,7 @@ app.use(session({
         mongooseConnection: mongoose.defaultInstance
     })
 }))
-app.use('/', require('./routes/index'));
+app.use('/api', require('./routes/index'));
 
 
 const startApp = async (port) => {

@@ -3,8 +3,8 @@ const User = require('../db/models').User;
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
 dotenv.config();
-
-// const salt = process.env.SALT;
+const secretKey = require('../config/jwt').secretKey;
+const jwt = require('jsonwebtoken');
 
 function _register(req, res, next) {
     User.findOne({ username: req.body.username }, (err, user) => {
@@ -16,7 +16,6 @@ function _register(req, res, next) {
                 const newUser = new User(req.body);
                 newUser.password = hash;
                 newUser.password_confirm = hash;
-
                 newUser.save((err, result) => {
                     if (err) {
                         return res.json({ err })
@@ -44,9 +43,12 @@ function _login(req, res) {
         bcrypt.compare(req.body.password, user.password, (err, result) => {
             if (result === true) {
                 req.session.user = user;
-                res.json({
-                    user: user,
-                    loggedIn: true
+                jwt.sign({user}, secretKey, (err, token) => {
+                    res.json({
+                        user: user,
+                        loggedIn: true,
+                        token: token
+                    })
                 })
             } else {
                 return res.json({
