@@ -43,7 +43,7 @@ function _login(req, res) {
         bcrypt.compare(req.body.password, user.password, (err, result) => {
             if (result === true) {
                 req.session.user = user;
-                jwt.sign({user}, secretKey, (err, token) => {
+                jwt.sign({ user }, secretKey, { expiresIn: '5h' }, (err, token) => {
                     res.json({
                         user: user,
                         loggedIn: true,

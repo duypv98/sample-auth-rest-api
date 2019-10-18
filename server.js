@@ -18,7 +18,8 @@ app.use(session({
     saveUninitialized: false,
     store: new MongoStore({
         mongooseConnection: mongoose.defaultInstance
-    })
+    }),
+    cookie: { maxAge: 18000 }
 }))
 app.use('/api', require('./routes/index'));
 
