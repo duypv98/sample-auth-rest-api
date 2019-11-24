@@ -47,7 +47,7 @@ function _login(req, res) {
                     res.json({
                         user: user,
                         loggedIn: true,
-                        token: token
+                        token: token,
                     })
                 })
             } else {
