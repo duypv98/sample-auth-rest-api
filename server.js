@@ -19,7 +19,7 @@ routes.forEach((route) => app.use(require(`./routes/${route}`)));
 (async () => {
   try {
     await mongoose.connect();
-    app.listen(port || 3000, () => console.log(`Server is running on http://localhost:${port}`));
+    app.listen(port, () => console.log(`Server is running on http://localhost:${port}`));
   } catch (e) {
     console.log(e);
   }
