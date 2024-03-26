@@ -6,7 +6,7 @@
   "dependencies": {
     "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
-    "express": "4.17.1",
+    "express": "4.19.2",
     "jsonwebtoken": "8.5.1",
     "mongoose": "5.7.5",
     "saslprep": "^1.0.3"
