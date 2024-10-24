@@ -4,7 +4,7 @@ const chalk = require('chalk');
 mongoose.Promise = global.Promise;
 
 const {
-  DB_HOST, DB_PORT, DB_USER, DB_PWD, DB_NAME
+  DB_HOST, DB_PORT, DB_USER, DB_PWD, DB_NAME, DB_URI
 } = process.env;
 
 const logs = {
@@ -35,15 +35,20 @@ process.on('SIGINT', () => {
     process.exit(0);
   });
 });
-
 module.exports = {
-  connect: () => mongoose.connect(`mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    auth: {
-      user: DB_USER,
-      password: DB_PWD,
-    },
-  }),
+  connect: () => {
+    const uri = DB_URI || `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`;
+    return mongoose.connect(uri, !!DB_URI ? {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    } : {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      auth: {
+        user: DB_USER,
+        password: DB_PWD,
+      },
+    })
+  },
   defaultInstance: mongoose.connection,
 };
