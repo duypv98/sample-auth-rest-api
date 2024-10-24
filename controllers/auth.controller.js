@@ -33,6 +33,15 @@ const login = async (req, res) => {
   // Sign JWT and send it to Client
   const token = jwt.sign({ uid: user.get('_id') }, JWT_KEY, { expiresIn: '30m' });
   res.cookie("x-data-token", token, { ...getCookieOptions() });
+  if (req.url === "/authorize") {
+    const redirectURI = req.query.redirect_uri;
+    if (!!redirectURI) {
+      // TODO: Check redirect URI is valid
+      res.redirect(redirectURI);
+      return;
+    }
+    return res.status(200).json({ data: { token } });
+  }
   return res.status(200).json({ data: { token } });
 };
 
