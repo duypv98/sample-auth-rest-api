@@ -22,7 +22,7 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, redirectURI } = req.body;
   // Check if empty request body
   if (!req.body || !username || !password) return res.status(400).json({ error: { message: 'Bad Request: empty data' } });
   // Check login info
@@ -34,7 +34,6 @@ const login = async (req, res) => {
   const token = jwt.sign({ uid: user.get('_id') }, JWT_KEY, { expiresIn: '30m' });
   res.cookie("x-data-token", token, { ...getCookieOptions() });
   if (req.url === "/authorize") {
-    const redirectURI = req.query.redirect_uri;
     if (!!redirectURI) {
       // TODO: Check redirect URI is valid
       res.redirect(redirectURI);
