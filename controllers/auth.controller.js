@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const User = require('../db/models/User');
+const { getCookieOptions } = require("../utils/cookie");
 
 const { JWT_KEY, SALT } = process.env;
 
@@ -30,7 +31,8 @@ const login = async (req, res) => {
   const isValidPassword = crypto.pbkdf2Sync(password, SALT, 1000, 64, 'sha512').toString('hex') === user.password;
   if (!isValidPassword) return res.status(401).json({ error: { message: 'Invalid Password' } });
   // Sign JWT and send it to Client
-  const token = jwt.sign({ uid: user.get('_id') }, JWT_KEY, { expiresIn: '5m' });
+  const token = jwt.sign({ uid: user.get('_id') }, JWT_KEY, { expiresIn: '30m' });
+  res.cookie("x-data-token", token, { ...getCookieOptions() });
   return res.status(200).json({ data: { token } });
 };
 
